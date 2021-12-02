@@ -1,7 +1,6 @@
 import getCustomMediaFromRoot from './lib/custom-media-from-root';
 import getCustomMediaFromImports from './lib/get-custom-media-from-imports';
 import transformAtrules from './lib/transform-atrules';
-import writeCustomMediaToExports from './lib/write-custom-media-to-exports';
 
 const creator = opts => {
 	// whether to preserve custom media and at-rules using them
@@ -10,23 +9,18 @@ const creator = opts => {
 	// sources to import custom media from
 	const importFrom = [].concat(Object(opts).importFrom || []);
 
-	// destinations to export custom media to
-	const exportTo = [].concat(Object(opts).exportTo || []);
-
 	// promise any custom media are imported
-	const customMediaImportsPromise = getCustomMediaFromImports(importFrom);
+	const customMediaImports = getCustomMediaFromImports(importFrom);
 
 	return {
 		postcssPlugin: 'postcss-custom-media',
-		Once: async (root, helpers) => {
+		Once: (root, helpers) => {
 
 			// combine rules from root and from imports
 			helpers.customMedia = Object.assign(
-				await customMediaImportsPromise,
+				customMediaImports,
 				getCustomMediaFromRoot(root, { preserve })
 			);
-
-			await writeCustomMediaToExports(helpers.customMedia, exportTo);
 		},
 		AtRule: {
 			media: (atrule, helpers) => {

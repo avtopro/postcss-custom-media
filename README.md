@@ -126,44 +126,6 @@ postcssCustomMedia({
 });
 ```
 
-### exportTo
-
-The `exportTo` option specifies destinations where custom media can be exported
-to, which might be CSS, JS, and JSON files, functions, and directly passed
-objects.
-
-```js
-postcssCustomMedia({
-  exportTo: 'path/to/file.css' // @custom-media --small-viewport (max-width: 30em);
-});
-```
-
-Multiple destinations can be passed into this option, and they will be parsed
-in the order they are received. JavaScript files, JSON files, and objects will
-need to namespace custom media using the `customMedia` or
-`custom-media` key.
-
-```js
-const cachedObject = { customMedia: {} };
-
-postcssCustomMedia({
-  exportTo: [
-    'path/to/file.css',   // @custom-media --small-viewport (max-width: 30em);
-    'and/then/this.js',   // module.exports = { customMedia: { '--small-viewport': '(max-width: 30em)' } }
-    'and/then/this.mjs',  // export const customMedia = { '--small-viewport': '(max-width: 30em)' } }
-    'and/then/that.json', // { "custom-media": { "--small-viewport": "(max-width: 30em)" } }
-    cachedObject,
-    customMedia => {
-      customMedia    // { '--small-viewport': '(max-width: 30em)' }
-    }
-  ]
-});
-```
-
-See example exports written to [CSS](test/export-media.css),
-[JS](test/export-media.js), [MJS](test/export-media.mjs), and
-[JSON](test/export-media.json).
-
 [cli-img]: https://img.shields.io/travis/postcss/postcss-custom-media/master.svg
 [cli-url]: https://travis-ci.org/postcss/postcss-custom-media
 [css-img]: https://cssdb.org/badge/custom-media-queries.svg
