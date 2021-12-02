@@ -1,3 +1,4 @@
+import getCustomMedia from './lib/custom-media-from-root';
 import getCustomMediaFromRoot from './lib/custom-media-from-root';
 import getCustomMediaFromImports from './lib/get-custom-media-from-imports';
 import transformAtrules from './lib/transform-atrules';
@@ -9,8 +10,11 @@ const creator = opts => {
 	// sources to import custom media from
 	const importFrom = [].concat(Object(opts).importFrom || []);
 
-	// promise any custom media are imported
-	const customMediaImports = getCustomMediaFromImports(importFrom);
+	// ready to use AST with custom media rules
+	const ast = Object(opts).ast;
+
+	const customMedia = getCustomMedia(ast, { preserve });
+	const customMediaFromImports = getCustomMediaFromImports(importFrom);
 
 	return {
 		postcssPlugin: 'postcss-custom-media',
@@ -18,7 +22,8 @@ const creator = opts => {
 
 			// combine rules from root and from imports
 			helpers.customMedia = Object.assign(
-				customMediaImports,
+				customMedia,
+				customMediaFromImports,
 				getCustomMediaFromRoot(root, { preserve })
 			);
 		},
