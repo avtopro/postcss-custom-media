@@ -1,15 +1,15 @@
 {
-  "name": "postcss-custom-media",
-  "version": "8.0.0",
-  "description": "Use Custom Media Queries in CSS",
+  "name": "@avtopro/postcss-custom-media",
+  "version": "8.1.0",
+  "description": "Use Custom Media Queries in CSS.",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "contributors": [
     "Maxime Thirouin"
   ],
   "license": "MIT",
-  "repository": "postcss/postcss-custom-media",
-  "homepage": "https://github.com/postcss/postcss-custom-media#readme",
-  "bugs": "https://github.com/postcss/postcss-custom-media/issues",
+  "repository": "https://github.com/avtopro/postcss-custom-media",
+  "homepage": "https://github.com/avtopro/postcss-custom-media#readme",
+  "bugs": "https://github.com/avtopro/postcss-custom-media/issues",
   "main": "index.cjs.js",
   "module": "index.es.mjs",
   "files": [
